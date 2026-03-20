@@ -49,7 +49,7 @@ public class CameraController : MonoBehaviour
                 boundaryEnd.z = player.transform.position.z;
             }
         }
-        float distance = Mathf.Clamp(((boundaryStart - boundaryEnd).magnitude + 4) * 0.8f, 5, 20);
+        float distance = Mathf.Clamp(((boundaryStart - boundaryEnd).magnitude + 8) * 0.8f, 10, 20);
         transform.position = (boundaryStart + boundaryEnd) / 2 - distance * transform.forward;
     }
 }

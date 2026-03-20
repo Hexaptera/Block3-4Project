@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (vel.magnitude < speed)
         {
-            vel += ((transform.right * move.x + transform.forward * move.y) * acceleration * Time.deltaTime);
+            vel += (new Vector3(move.x, 0, move.y) * acceleration * Time.deltaTime);
         }
 
         bool hit = Physics.Raycast(feet.transform.position, new Vector3(0, -1, 0), 0.1f, floorCollisionMask);
