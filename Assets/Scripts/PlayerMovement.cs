@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
-        jumpAction = playerInput.actions["Jump"];
+        jumpAction = playerInput.actions["Interact"];
     }
 
     // Update is called once per frame
@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 move = moveAction.ReadValue<Vector2>();
         var vel = rigidBody.linearVelocity;
 
-        if (vel.magnitude < speed)
+        if (vel.magnitude < speed && !GetComponent<PlayerFotographing>().cameraActive)
         {
             vel += (new Vector3(move.x, 0, move.y) * acceleration * Time.deltaTime);
         }

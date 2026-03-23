@@ -1,5 +1,9 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerFotographing : MonoBehaviour
 {
@@ -7,7 +11,7 @@ public class PlayerFotographing : MonoBehaviour
     InputAction lookAction;
     InputAction lookVerticalAction;
     InputAction cameraToggleAction;
-    bool cameraActive = false;
+    public bool cameraActive = false;
 
     [SerializeField] GameObject photoCamera;
     [SerializeField] GameObject viewVisual;
@@ -17,18 +21,29 @@ public class PlayerFotographing : MonoBehaviour
     [SerializeField] float displayHeight;
     [SerializeField] Vector2 displaySize;
 
+    [SerializeField] GameObject scoreDisplay;
+    [SerializeField] Material redMaterial;
+    [SerializeField] Material greenMaterial;
+    [SerializeField] Material blueMaterial;
+
+    List<GameObject> seenAnimals = new List<GameObject>();
+
+    int score = 0;
+
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
-        lookAction = playerInput.actions["Look"];
+        lookAction = playerInput.actions["Move"];
         lookVerticalAction = playerInput.actions["Look Vertical"];
-        cameraToggleAction = playerInput.actions["Interact"];
+        cameraToggleAction = playerInput.actions["Jump"];
     }
 
     void Update()
     {
-        if (cameraToggleAction.WasPressedThisFrame()) cameraActive = !cameraActive;
+        //if (cameraToggleAction.WasPressedThisFrame()) cameraActive = !cameraActive;
+        cameraActive = cameraToggleAction.IsPressed();
+
         if (cameraActive)
         {
             photoCamera.SetActive(true);
@@ -44,12 +59,39 @@ public class PlayerFotographing : MonoBehaviour
 
             Vector2 displayPos = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, displayHeight, 0)) / new Vector2(Screen.width, Screen.height) - displaySize / 2;
             photoCamera.GetComponent<Camera>().rect = new Rect(displayPos, displaySize);
-            
         } 
         else
         {
+            foreach (GameObject animal in seenAnimals)
+            {
+                animal.GetComponent<MeshRenderer>().material = blueMaterial;
+                animal.transform.parent.GetComponent<AnimalPhotographing>().photographed = true;
+                score += 1;
+            }
+            seenAnimals = new List<GameObject>();
+            scoreDisplay.GetComponent<TextMeshPro>().text = score.ToString();
+
             photoCamera.SetActive(false);
             viewVisual.SetActive(false);
+        }
+
+        scoreDisplay.transform.rotation = Quaternion.identity;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.transform.parent.GetComponent<AnimalPhotographing>().photographed)
+        {
+            other.GetComponent<MeshRenderer>().material = greenMaterial;
+            seenAnimals.Add(other.gameObject);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.transform.parent.GetComponent<AnimalPhotographing>().photographed)
+        {
+            other.GetComponent<MeshRenderer>().material = redMaterial;
+            seenAnimals.Remove(other.gameObject);
         }
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 622981024484357539}
   - component: {fileID: 1812973640779803748}
   - component: {fileID: 1692216478609806666}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,11 +123,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8111899924308835917}
-  - component: {fileID: 1613213812608417830}
   - component: {fileID: 4444643315901454882}
+  - component: {fileID: 1613213812608417830}
+  - component: {fileID: 1456459433886527738}
   m_Layer: 0
   m_Name: Animal
-  m_TagString: Untagged
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,21 +149,6 @@ Transform:
   - {fileID: 2678173341291792699}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1613213812608417830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5912282228902207214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b5637005934e7848a35069b11d32edb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  speed: 6
-  acceleration: 100
-  damping: 0.4
 --- !u!54 &4444643315901454882
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -182,7 +168,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -190,3 +176,31 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1613213812608417830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5912282228902207214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b5637005934e7848a35069b11d32edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  speed: 6
+  acceleration: 100
+  damping: 0.4
+--- !u!114 &1456459433886527738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5912282228902207214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 962e2582e117155418ff93fa667ad80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  photographed: 0
