@@ -27,7 +27,6 @@ public class AnimalMovement : MonoBehaviour
             {
                 rigidBody.linearVelocity += difference.normalized * acceleration * Time.deltaTime;
             }
-            rigidBody.linearVelocity *= Mathf.Pow(damping, Time.deltaTime);
 
             if (difference.magnitude < 1)
             {
@@ -43,6 +42,7 @@ public class AnimalMovement : MonoBehaviour
                 PickPoint();
             }
         }
+        rigidBody.linearVelocity *= Mathf.Pow(damping, Time.deltaTime);
     }
     void PickPoint()
     {
