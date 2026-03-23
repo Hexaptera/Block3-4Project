@@ -4,6 +4,7 @@ public class AnimalPhotographing : MonoBehaviour
 {
     
     public bool photographed = false;
+    public int points = 1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

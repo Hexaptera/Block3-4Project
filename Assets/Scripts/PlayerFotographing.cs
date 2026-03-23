@@ -52,7 +52,7 @@ public class PlayerFotographing : MonoBehaviour
             Vector2 look = lookAction.ReadValue<Vector2>();
             if (look.magnitude > 0)
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(look.x, 0, look.y), new Vector3(0, 1, 0)), 0.05f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(look.x, 0, look.y), new Vector3(0, 1, 0)), 0.075f);
             }
 
             eyes.transform.localRotation = Quaternion.Lerp(eyes.transform.localRotation, Quaternion.Euler(new Vector3(lookVerticalAction.ReadValue<float>() * 20, 0, 0)), 0.1f);
@@ -62,11 +62,12 @@ public class PlayerFotographing : MonoBehaviour
         } 
         else
         {
-            foreach (GameObject animal in seenAnimals)
+            foreach (GameObject animalCollider in seenAnimals)
             {
-                animal.GetComponent<MeshRenderer>().material = blueMaterial;
-                animal.transform.parent.GetComponent<AnimalPhotographing>().photographed = true;
-                score += 1;
+                animalCollider.GetComponent<MeshRenderer>().material = blueMaterial;
+                AnimalPhotographing animalPhotographing = animalCollider.transform.parent.GetComponent<AnimalPhotographing>();
+                animalPhotographing.photographed = true;
+                score += animalPhotographing.points;
             }
             seenAnimals = new List<GameObject>();
             scoreDisplay.GetComponent<TextMeshPro>().text = score.ToString();

@@ -261,9 +261,9 @@ MonoBehaviour:
   photoCamera: {fileID: 1126839877995725153}
   viewVisual: {fileID: 4062712519816759678}
   eyes: {fileID: 9219428539881210623}
-  verticalViewAngle: 50
+  verticalViewAngle: 75
   displayHeight: 4
-  displaySize: {x: 0.25, y: 0.25}
+  displaySize: {x: 0.15, y: 0.15}
   scoreDisplay: {fileID: 4194406087111434675}
   redMaterial: {fileID: 2100000, guid: 20499b1fd1ca6f049b098459f7cb2a87, type: 2}
   greenMaterial: {fileID: 2100000, guid: eae9713a00e8763488e816efe9778ae5, type: 2}

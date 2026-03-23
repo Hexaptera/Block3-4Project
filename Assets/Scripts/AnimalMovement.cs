@@ -10,14 +10,11 @@ public class AnimalMovement : MonoBehaviour
     GameObject currentPoint;
     float pauseTimer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
         PickPoint();
     }
-
-    // Update is called once per frame
     void Update()
     {
 
@@ -25,6 +22,7 @@ public class AnimalMovement : MonoBehaviour
         {
             Debug.DrawLine(transform.position, currentPoint.transform.position);
             Vector3 difference = (currentPoint.transform.position - transform.position);
+            difference.Scale(new Vector3(1, 0, 1));
             if (rigidBody.linearVelocity.magnitude < speed)
             {
                 rigidBody.linearVelocity += difference.normalized * acceleration * Time.deltaTime;
@@ -46,7 +44,6 @@ public class AnimalMovement : MonoBehaviour
             }
         }
     }
-
     void PickPoint()
     {
         GameObject[] points = GameObject.FindGameObjectsWithTag("Animal Point");
