@@ -5,48 +5,42 @@ public class AnimalMovement : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float acceleration;
     [SerializeField] float damping;
+    [SerializeField] GameObject eyes;
+    [SerializeField] public LayerMask animalAreaMask;
 
     Rigidbody rigidBody;
-    GameObject currentPoint;
-    float pauseTimer;
+    float directionChangeTimer;
+    Quaternion direction;
 
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
-        PickPoint();
+        direction = transform.rotation;
     }
     void Update()
     {
-
-        if (currentPoint)
+        if (!Physics.Raycast(eyes.transform.position, direction * eyes.transform.localRotation * Vector3.forward, Mathf.Infinity, animalAreaMask))
         {
-            Debug.DrawLine(transform.position, currentPoint.transform.position);
-            Vector3 difference = (currentPoint.transform.position - transform.position);
-            difference.Scale(new Vector3(1, 0, 1));
-            if (rigidBody.linearVelocity.magnitude < speed)
-            {
-                rigidBody.linearVelocity += difference.normalized * acceleration * Time.deltaTime;
-            }
-
-            if (difference.magnitude < 1)
-            {
-                currentPoint = null;
-                pauseTimer = Random.Range(0.0f, 5.0f);
-            }
-        }
-        else
+            Debug.DrawRay(eyes.transform.position, direction * eyes.transform.localRotation * Vector3.forward, Color.red);
+            ChangeDirection();
+        } else
         {
-            pauseTimer -= Time.deltaTime;
-            if (pauseTimer < 0.0f)
-            {
-                PickPoint();
-            }
+            Debug.DrawRay(eyes.transform.position, direction * eyes.transform.localRotation * Vector3.forward, Color.green);
         }
-        rigidBody.linearVelocity *= Mathf.Pow(damping, Time.deltaTime);
+
+            directionChangeTimer -= Time.deltaTime;
+        if (directionChangeTimer < 0.0f)
+        {
+            ChangeDirection();
+        }
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, direction, 0.03f);
+        rigidBody.linearVelocity = transform.forward * speed;
     }
-    void PickPoint()
+
+    void ChangeDirection()
     {
-        GameObject[] points = GameObject.FindGameObjectsWithTag("Animal Point");
-        currentPoint = points[Random.Range(0, points.Length)];
+        direction *= Quaternion.Euler(0, Random.Range(-60, 60), 0);
+        directionChangeTimer = 0.7f;
     }
 }

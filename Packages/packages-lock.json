@@ -72,6 +72,14 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.inputsystem.switch": {
+      "version": "file:C:/Nintendo/NativeSDK21.4.4/UnityForNintendoSwitch/Packages/com.unity.inputsystem.switch@0.2.0-pre",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.unity.inputsystem": "1.1.0"
+      }
+    },
     "com.unity.mathematics": {
       "version": "1.3.3",
       "depth": 2,
