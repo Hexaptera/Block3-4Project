@@ -1338,9 +1338,9 @@ GameObject:
   - component: {fileID: 808741365}
   - component: {fileID: 808741368}
   - component: {fileID: 808741367}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AnimalPoint
-  m_TagString: Animal Point
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1590,9 +1590,9 @@ GameObject:
   - component: {fileID: 952593382}
   - component: {fileID: 952593385}
   - component: {fileID: 952593384}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AnimalPoint
-  m_TagString: Animal Point
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1753,9 +1753,9 @@ GameObject:
   - component: {fileID: 1068167688}
   - component: {fileID: 1068167691}
   - component: {fileID: 1068167690}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AnimalPoint
-  m_TagString: Animal Point
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2656,9 +2656,9 @@ GameObject:
   - component: {fileID: 1491504960}
   - component: {fileID: 1491504963}
   - component: {fileID: 1491504962}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AnimalPoint
-  m_TagString: Animal Point
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2746,9 +2746,9 @@ GameObject:
   - component: {fileID: 1515079397}
   - component: {fileID: 1515079400}
   - component: {fileID: 1515079399}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AnimalPoint
-  m_TagString: Animal Point
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2836,9 +2836,9 @@ GameObject:
   - component: {fileID: 1623515738}
   - component: {fileID: 1623515741}
   - component: {fileID: 1623515740}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AnimalPoint
-  m_TagString: Animal Point
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3024,9 +3024,9 @@ GameObject:
   - component: {fileID: 1891081122}
   - component: {fileID: 1891081125}
   - component: {fileID: 1891081124}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AnimalPoint
-  m_TagString: Animal Point
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3299,9 +3299,9 @@ GameObject:
   - component: {fileID: 1940672018}
   - component: {fileID: 1940672021}
   - component: {fileID: 1940672020}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AnimalPoint
-  m_TagString: Animal Point
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3663,6 +3663,10 @@ PrefabInstance:
     - target: {fileID: 8888869467214870024, guid: 2b6cddc97f162a74db00d789476051f2, type: 3}
       propertyPath: m_Name
       value: Bush
+      objectReference: {fileID: 0}
+    - target: {fileID: 8888869467214870024, guid: 2b6cddc97f162a74db00d789476051f2, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

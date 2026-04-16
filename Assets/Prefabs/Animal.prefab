@@ -397,7 +397,7 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 520
+    m_Bits: 3592
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 2147484151
@@ -427,6 +427,7 @@ MonoBehaviour:
   animalAreaMask:
     serializedVersion: 2
     m_Bits: 256
+  currentFood: {fileID: 0}
 --- !u!114 &1456459433886527738
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.EditorTools;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class AnimalMovement : MonoBehaviour
     Rigidbody rigidBody;
     float directionChangeTimer;
     Quaternion direction;
-    GameObject currentFood;
+    public GameObject currentFood;
     float foodTimer;
 
     void Start()
@@ -40,15 +41,7 @@ public class AnimalMovement : MonoBehaviour
             ChangeDirection();
         }
 
-        foreach (GameObject gameObject in objectsToAvoid)
-        {
-            if (!gameObject.CompareTag("PlayerCollider") || !gameObject.transform.parent.GetComponent<PlayerMovement>().inBush)
-            { 
-                AvoidPosition(gameObject.transform.position);
-            }
-        }
-
-        if (currentFood)
+        if (currentFood != null)
         {
             TargetPosition(currentFood.transform.position);
             foodTimer -= Time.deltaTime;
@@ -56,6 +49,19 @@ public class AnimalMovement : MonoBehaviour
             {
                 GameObject.Destroy(currentFood);
                 currentFood = null;
+            }
+        }
+
+        foreach (GameObject gameObject in objectsToAvoid)
+        {
+            if (gameObject != null) {
+                if (!gameObject.CompareTag("PlayerCollider") || !gameObject.transform.parent.GetComponent<PlayerMovement>().inBush)
+            { 
+                AvoidPosition(gameObject.transform.position);
+            }
+            } else
+            {
+               objectsToAvoid.Remove(gameObject);
             }
         }
 

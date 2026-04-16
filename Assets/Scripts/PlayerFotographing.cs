@@ -81,7 +81,7 @@ public class PlayerFotographing : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.parent.CompareTag("Animal") && !other.transform.parent.GetComponent<AnimalPhotographing>().photographed)
+        if (other.transform.parent && other.transform.parent.CompareTag("Animal") && !other.transform.parent.GetComponent<AnimalPhotographing>().photographed)
         {
             other.GetComponent<MeshRenderer>().material = greenMaterial;
             seenAnimals.Add(other.gameObject);
@@ -89,7 +89,7 @@ public class PlayerFotographing : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform.parent.CompareTag("Animal") && !other.transform.parent.GetComponent<AnimalPhotographing>().photographed)
+        if (other.transform.parent && other.transform.parent.CompareTag("Animal") && !other.transform.parent.GetComponent<AnimalPhotographing>().photographed)
         {
             other.GetComponent<MeshRenderer>().material = redMaterial;
             seenAnimals.Remove(other.gameObject);
