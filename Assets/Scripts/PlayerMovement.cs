@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float velocityDamping;
     [SerializeField] float gravity;
     [SerializeField] float jumpStrength;
+    [SerializeField] GameObject spawn;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
         jumpAction = playerInput.actions["Interact"];
+        transform.position = spawn.transform.position;
     }
 
     // Update is called once per frame
