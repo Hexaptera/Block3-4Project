@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpStrength;
     [SerializeField] GameObject spawn;
 
+    public bool inBush = false;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,5 +56,21 @@ public class PlayerMovement : MonoBehaviour
         vel.x *= Mathf.Pow(velocityDamping, Time.deltaTime);
         vel.z *= Mathf.Pow(velocityDamping, Time.deltaTime);
         rigidBody.linearVelocity = vel;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Bush"))
+        {
+            inBush = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Bush"))
+        {
+            inBush = false;
+        }
     }
 }

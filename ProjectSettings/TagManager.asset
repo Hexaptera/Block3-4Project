@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Animal Point
   - Animal
+  - Garbage
+  - Food
+  - PlayerCollider
+  - Bush
   layers:
   - Default
   - TransparentFX
@@ -17,6 +21,9 @@ TagManager:
   - Animal
   - AnimalArea
   - Player
+  - Garbage
+  - Food
+  - Bush
   - 
   - 
   - 
@@ -35,10 +42,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - trigger
   m_SortingLayers:
   - name: Default
     uniqueID: 0
