@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     PlayerInput playerInput;
     InputAction moveAction;
     InputAction jumpAction;
+    GameObject spawn;
 
     [SerializeField] GameObject feet;
     [SerializeField] LayerMask floorCollisionMask;
@@ -17,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float velocityDamping;
     [SerializeField] float gravity;
     [SerializeField] float jumpStrength;
-    [SerializeField] GameObject spawn;
+    
 
     public bool inBush = false;
 
@@ -29,7 +30,14 @@ public class PlayerMovement : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
         jumpAction = playerInput.actions["Interact"];
-        transform.position = spawn.transform.position;
+        
+        //Buggy if there are multiple spawn points in one scnene
+
+        spawn = GameObject.Find("Spawn Location");
+        if(spawn != null)
+        {
+            transform.position = spawn.transform.position;
+        }
     }
 
     // Update is called once per frame

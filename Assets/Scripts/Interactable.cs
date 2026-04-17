@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,29 +7,28 @@ public class Interactable : MonoBehaviour
 {
     PlayerInput playerInput;
     InputAction interactAction;
-    Boolean isTouching = false;
+    public Boolean isTouching = false;
+    public Boolean isInteracting = false;
     [SerializeField] GameObject player;
-    [SerializeField] LayerMask playerLayer;
-
+    
     void Start()
     {
         playerInput = player.GetComponent<PlayerInput>();
-        interactAction = playerInput.actions["Interact"];
-
+        interactAction = playerInput.actions["Interact"];   
     }
 
     
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag ==  "Player")
+        if (other.gameObject.tag == "PlayerCollider")
         {
             isTouching = true;
             
         }
     }
-    void OnCollisionExit(Collision collision)
+    void OnTriggerExit(Collider other)
     {
-        if (collision.gameObject.tag ==  "Player")
+        if (other.gameObject.tag ==  "PlayerCollider")
         {
             isTouching = false;
         }
@@ -36,10 +36,14 @@ public class Interactable : MonoBehaviour
   
     void Update()
     {
-        Debug.Log(isTouching);
         if (isTouching && interactAction.IsPressed())
             {
-                Destroy(gameObject); 
+                isInteracting = true;
+            }
+        else
+            {
+                isInteracting = false;
             }
     }
+
 }
