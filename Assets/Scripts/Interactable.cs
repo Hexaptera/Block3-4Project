@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Interactable : MonoBehaviour
 {
+    public PlayerMovement playerMovement;
     PlayerInput playerInput;
     InputAction interactAction;
     public Boolean isTouching = false;
@@ -14,7 +15,9 @@ public class Interactable : MonoBehaviour
     void Start()
     {
         playerInput = player.GetComponent<PlayerInput>();
-        interactAction = playerInput.actions["Interact"];   
+        playerMovement = player.GetComponent<PlayerMovement>(); 
+        interactAction = playerInput.actions["Interact"];  
+       
     }
 
     
@@ -23,7 +26,6 @@ public class Interactable : MonoBehaviour
         if (other.gameObject.tag == "PlayerCollider")
         {
             isTouching = true;
-            
         }
     }
     void OnTriggerExit(Collider other)
@@ -44,6 +46,15 @@ public class Interactable : MonoBehaviour
             {
                 isInteracting = false;
             }
+
+        if(isInteracting)
+        {
+            playerMovement.enabled = false;
+        }
+        else
+        {
+            playerMovement.enabled = true;
+        }
     }
 
 }
