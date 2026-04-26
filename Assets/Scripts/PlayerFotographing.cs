@@ -70,7 +70,9 @@ public class PlayerFotographing : MonoBehaviour
                 Vector3 eyesToAnimal = animal.transform.position - eyes.transform.position;
                 if (eyesToAnimal.magnitude < maxPhotoDistance + 0.2f && Vector3.Angle(eyesToAnimal, eyes.transform.forward) < maxPhotoFOV)
                 {
-                    GameObject.FindGameObjectWithTag("TaskManager").GetComponent<TaskManager>().taskDisplays[0].Complete();
+                    TaskManager taskManager = GameObject.FindGameObjectWithTag("TaskManager").GetComponent<TaskManager>();
+                    taskManager.taskDisplays[0].Complete();
+                    taskManager.UpdateTasks();
                     score += 1;
                 }
             }

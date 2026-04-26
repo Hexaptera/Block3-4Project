@@ -5,6 +5,8 @@ public class TaskDisplay : MonoBehaviour
 {
     [SerializeField] Image TickBox;
 
+    public bool completed = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,5 +22,6 @@ public class TaskDisplay : MonoBehaviour
     public void Complete()
     {
         TickBox.color = Color.green;
+        completed = true;
     }
 }
