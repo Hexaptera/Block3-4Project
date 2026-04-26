@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
-        jumpAction = playerInput.actions["Interact"];
+        jumpAction = playerInput.actions["Jump"];
         
         //Buggy if there are multiple spawn points in one scnene
 

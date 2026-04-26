@@ -36,7 +36,7 @@ public class PlayerFotographing : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         lookAction = playerInput.actions["Move"];
         lookVerticalAction = playerInput.actions["Look Vertical"];
-        cameraToggleAction = playerInput.actions["Jump"];
+        cameraToggleAction = playerInput.actions["Activate Camera"];
     }
 
     void Update()

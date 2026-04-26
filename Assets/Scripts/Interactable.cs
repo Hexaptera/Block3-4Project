@@ -47,7 +47,7 @@ public class Interactable : MonoBehaviour
                 isInteracting = false;
             }
 
-        if(isInteracting)
+        if (isInteracting)
         {
             playerMovement.enabled = false;
         }
