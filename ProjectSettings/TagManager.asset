@@ -10,6 +10,7 @@ TagManager:
   - Food
   - PlayerCollider
   - Bush
+  - TaskManager
   layers:
   - Default
   - TransparentFX

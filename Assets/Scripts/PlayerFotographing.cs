@@ -10,7 +10,7 @@ public class PlayerFotographing : MonoBehaviour
     PlayerInput playerInput;
     InputAction lookAction;
     InputAction lookVerticalAction;
-    InputAction cameraToggleAction;
+    InputAction activateCameraAction;
     public bool cameraActive = false;
 
     [SerializeField] GameObject photoCamera;
@@ -21,12 +21,17 @@ public class PlayerFotographing : MonoBehaviour
     [SerializeField] float displayHeight;
     [SerializeField] Vector2 displaySize;
 
+    [SerializeField] float maxPhotoDistance;
+    [SerializeField] float maxPhotoFOV;
+
     [SerializeField] GameObject scoreDisplay;
     [SerializeField] Material redMaterial;
     [SerializeField] Material greenMaterial;
     [SerializeField] Material blueMaterial;
 
     List<GameObject> seenAnimals = new List<GameObject>();
+
+    [SerializeField] TaskDisplay duckTask;
 
     int score = 0;
 
@@ -36,18 +41,19 @@ public class PlayerFotographing : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         lookAction = playerInput.actions["Move"];
         lookVerticalAction = playerInput.actions["Look Vertical"];
-        cameraToggleAction = playerInput.actions["Activate Camera"];
+        activateCameraAction = playerInput.actions["Activate Camera"];
     }
 
     void Update()
     {
         //if (cameraToggleAction.WasPressedThisFrame()) cameraActive = !cameraActive;
-        cameraActive = cameraToggleAction.IsPressed();
+        cameraActive = activateCameraAction.IsPressed();
+        photoCamera.SetActive(cameraActive);
+        viewVisual.SetActive(cameraActive);
 
         if (cameraActive)
         {
-            photoCamera.SetActive(true);
-            viewVisual.SetActive(true);
+            viewVisual.transform.localScale = new Vector3(maxPhotoDistance, maxPhotoDistance, maxPhotoDistance) * 50;
 
             Vector2 look = lookAction.ReadValue<Vector2>();
             if (look.magnitude > 0)
@@ -57,13 +63,23 @@ public class PlayerFotographing : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(lookDirection, new Vector3(0, 1, 0)), 1 - Mathf.Exp(-10f * Time.deltaTime));
             }
 
-            eyes.transform.localRotation = Quaternion.Lerp(eyes.transform.localRotation, Quaternion.Euler(new Vector3(lookVerticalAction.ReadValue<float>() * 20, 0, 0)), 1 - Mathf.Exp(-20f * Time.deltaTime));
+            eyes.transform.localRotation = Quaternion.Lerp(eyes.transform.localRotation, Quaternion.Euler(new Vector3(lookVerticalAction.ReadValue<float>() * verticalViewAngle, 0, 0)), 1 - Mathf.Exp(-20f * Time.deltaTime));
 
             Vector2 displayPos = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, displayHeight, 0)) / new Vector2(Screen.width, Screen.height) - displaySize / 2;
             photoCamera.GetComponent<Camera>().rect = new Rect(displayPos, displaySize);
         } 
-        else
+        else if (activateCameraAction.WasReleasedThisFrame())
         {
+            foreach (GameObject animal in GameObject.FindGameObjectsWithTag("Animal"))
+            {
+                Vector3 eyesToAnimal = animal.transform.position - eyes.transform.position;
+                if (eyesToAnimal.magnitude < maxPhotoDistance + 0.2f && Vector3.Angle(eyesToAnimal, eyes.transform.forward) < maxPhotoFOV)
+                {
+                    GameObject.FindGameObjectWithTag("TaskManager").GetComponent<TaskManager>().taskDisplays[0].Complete();
+                    score += 1;
+                }
+            }
+
             foreach (GameObject animalCollider in seenAnimals)
             {
                 animalCollider.GetComponent<MeshRenderer>().material = blueMaterial;
@@ -71,6 +87,7 @@ public class PlayerFotographing : MonoBehaviour
                 animalPhotographing.photographed = true;
                 score += animalPhotographing.points;
             }
+
             seenAnimals = new List<GameObject>();
             scoreDisplay.GetComponent<TextMeshPro>().text = score.ToString();
 
@@ -78,7 +95,7 @@ public class PlayerFotographing : MonoBehaviour
             viewVisual.SetActive(false);
         }
 
-        scoreDisplay.transform.rotation = Quaternion.identity;
+        scoreDisplay.transform.rotation = Camera.main.transform.rotation;
     }
 
     private void OnTriggerEnter(Collider other)
