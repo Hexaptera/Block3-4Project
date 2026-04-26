@@ -15,6 +15,7 @@ public class TaskManager : MonoBehaviour
         for (int i = 0; i < tasks.Length; i++) 
         {
             GameObject newTask = Instantiate(taskDisplayPrefab, canvas.transform);
+            newTask.transform.position += 30 * Vector3.down * i;
             newTask.GetComponent<TextMeshProUGUI>().text = tasks[i];
             Debug.Log(newTask.GetComponent<TaskDisplay>());
             taskDisplays[i] = newTask.GetComponent<TaskDisplay>();

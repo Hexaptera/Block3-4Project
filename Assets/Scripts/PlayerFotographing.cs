@@ -29,12 +29,7 @@ public class PlayerFotographing : MonoBehaviour
     [SerializeField] Material greenMaterial;
     [SerializeField] Material blueMaterial;
 
-    List<GameObject> seenAnimals = new List<GameObject>();
-
-    [SerializeField] TaskDisplay duckTask;
-
     int score = 0;
-
 
     void Start()
     {
@@ -79,39 +74,8 @@ public class PlayerFotographing : MonoBehaviour
                     score += 1;
                 }
             }
-
-            foreach (GameObject animalCollider in seenAnimals)
-            {
-                animalCollider.GetComponent<MeshRenderer>().material = blueMaterial;
-                AnimalPhotographing animalPhotographing = animalCollider.transform.parent.GetComponent<AnimalPhotographing>();
-                animalPhotographing.photographed = true;
-                score += animalPhotographing.points;
-            }
-
-            seenAnimals = new List<GameObject>();
             scoreDisplay.GetComponent<TextMeshPro>().text = score.ToString();
-
-            photoCamera.SetActive(false);
-            viewVisual.SetActive(false);
         }
-
         scoreDisplay.transform.rotation = Camera.main.transform.rotation;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.parent && other.transform.parent.CompareTag("Animal") && !other.transform.parent.GetComponent<AnimalPhotographing>().photographed)
-        {
-            other.GetComponent<MeshRenderer>().material = greenMaterial;
-            seenAnimals.Add(other.gameObject);
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.transform.parent && other.transform.parent.CompareTag("Animal") && !other.transform.parent.GetComponent<AnimalPhotographing>().photographed)
-        {
-            other.GetComponent<MeshRenderer>().material = redMaterial;
-            seenAnimals.Remove(other.gameObject);
-        }
     }
 }
