@@ -64,7 +64,7 @@ public class AnimalMovement : MonoBehaviour
             }
         }
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, direction, 0.03f);
+        transform.rotation = Quaternion.Lerp(transform.rotation, direction, 1 - Mathf.Exp(-10f * Time.deltaTime));
         rigidBody.linearVelocity = transform.forward * speed;
     }
 
@@ -75,7 +75,7 @@ public class AnimalMovement : MonoBehaviour
     }
     void AvoidPosition(Vector3 position)
     {
-        direction = Quaternion.Lerp(direction, Quaternion.LookRotation(Vector3.Scale((transform.position - position), new Vector3(1, 0, 1))), 0.3f);
+        direction = Quaternion.Lerp(direction, Quaternion.LookRotation(Vector3.Scale((transform.position - position), new Vector3(1, 0, 1))), 1 - Mathf.Exp(-10f * Time.deltaTime));
         directionChangeTimer = 0.7f;
     }
 

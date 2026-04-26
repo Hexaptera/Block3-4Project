@@ -52,10 +52,12 @@ public class PlayerFotographing : MonoBehaviour
             Vector2 look = lookAction.ReadValue<Vector2>();
             if (look.magnitude > 0)
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(look.x, 0, look.y), new Vector3(0, 1, 0)), 0.075f);
+                Transform cam = Camera.main.gameObject.transform;
+                Vector3 lookDirection = Quaternion.FromToRotation(cam.up, Vector3.up) * (look.x * cam.right + look.y * cam.forward);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(lookDirection, new Vector3(0, 1, 0)), 1 - Mathf.Exp(-10f * Time.deltaTime));
             }
 
-            eyes.transform.localRotation = Quaternion.Lerp(eyes.transform.localRotation, Quaternion.Euler(new Vector3(lookVerticalAction.ReadValue<float>() * 20, 0, 0)), 0.1f);
+            eyes.transform.localRotation = Quaternion.Lerp(eyes.transform.localRotation, Quaternion.Euler(new Vector3(lookVerticalAction.ReadValue<float>() * 20, 0, 0)), 1 - Mathf.Exp(-20f * Time.deltaTime));
 
             Vector2 displayPos = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, displayHeight, 0)) / new Vector2(Screen.width, Screen.height) - displaySize / 2;
             photoCamera.GetComponent<Camera>().rect = new Rect(displayPos, displaySize);

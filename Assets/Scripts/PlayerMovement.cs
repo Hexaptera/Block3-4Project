@@ -48,10 +48,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (vel.magnitude < speed && !GetComponent<PlayerFotographing>().cameraActive)
         {
-            vel += (new Vector3(move.x, 0, move.y) * acceleration * Time.deltaTime);
+            Transform cam = Camera.main.gameObject.transform;
+            vel += Quaternion.FromToRotation(cam.up, Vector3.up) * (move.x * cam.right + move.y * cam.forward) * acceleration * Time.deltaTime;
         }
 
-        bool hit = Physics.Raycast(feet.transform.position, new Vector3(0, -1, 0), 0.1f, floorCollisionMask);
+        bool hit = Physics.Raycast(feet.transform.position, new Vector3(0, -1, 0), 0.4f, floorCollisionMask);
         if (jumpAction.WasPressedThisFrame() && hit)
         {
             vel.y = jumpStrength;
